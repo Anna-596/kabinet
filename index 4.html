@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Кабинет Ани</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Playfair+Display:wght@500;600&family=Cormorant+Garamond:ital,wght@1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#E3E7DE;--g:#1F3A12;--l:#C98FD3;--s:#B6D98C}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--g);font:500 15px Manrope,system-ui,sans-serif;padding-bottom:90px}
+#app{max-width:980px;margin:0 auto;padding:0 14px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:12px;position:sticky;top:0;background:var(--bg);z-index:5;justify-content:center}
+nav button{border:0;background:#fff;color:var(--g);border-radius:20px;padding:9px 15px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
+nav button.on{background:var(--g);color:#fff}
+@media(max-width:700px){nav{position:fixed;top:auto;bottom:0;left:0;right:0;justify-content:flex-start;box-shadow:0 -6px 20px #1f3a1226;border-radius:24px 24px 0 0}}
+.c{background:#fff;border-radius:28px;box-shadow:0 8px 28px #1f3a1219;padding:20px;margin:14px 0}
+.hd{border-radius:28px;padding:28px;margin-top:6px;background:linear-gradient(135deg,var(--s),var(--l))}
+h1{font-size:clamp(28px,6vw,44px);font-weight:800;letter-spacing:-.03em;margin:4px 0 10px;line-height:1.05}
+h3{font-size:20px;font-weight:800;margin:0 0 10px;letter-spacing:-.02em}h4{margin:12px 0 2px;opacity:.6}
+.st{display:flex;gap:22px;flex-wrap:wrap;font-size:13px}.st b{display:block;font-size:26px;font-weight:800}
+.btn{background:var(--g);color:#fff;border:0;border-radius:20px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer;margin:6px 6px 0 0}
+.btn.l{background:var(--l);color:var(--g)}
+.r{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid #eef0ea}
+.r span{flex:1;cursor:pointer}.r i,.ev,.hn i{cursor:pointer;font-style:normal;opacity:.55}
+.r input[type=checkbox]{width:20px;height:20px;accent-color:var(--g)}
+.done{text-decoration:line-through;opacity:.5}
+input[type=text],input[type=date],textarea,select{width:100%;font:inherit;border:2px solid #e3e7de;border-radius:16px;padding:10px 14px;background:#f7f9f5;color:var(--g)}
+textarea{min-height:90px}.n{border:0;background:#eef2e8;border-radius:14px;width:44px;height:44px;font:inherit;font-weight:800;cursor:pointer;margin-right:4px}
+.n.on{background:var(--g);color:#fff}
+.bar{height:12px;border-radius:8px;background:#eef2e8;overflow:hidden;margin:8px 0}.bar b{display:block;height:100%;background:linear-gradient(90deg,var(--s),var(--l))}
+.g7{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.g7>b{text-align:center;font-size:12px;opacity:.6}
+.day{min-height:90px;border-radius:14px;background:#f4f6f1;padding:5px;font-size:11px;cursor:pointer;overflow:hidden}
+.day.today{background:#e9f4d9}.ring{box-shadow:inset 0 0 0 3px var(--l)}
+.ev{display:block;background:var(--s);border-radius:8px;padding:2px 5px;margin-top:3px;opacity:1;font-size:11px}
+table{border-collapse:collapse;font-size:12px}td,th{padding:2px}.hn{min-width:130px;font-size:13px}
+.cell{display:block;width:22px;height:22px;border-radius:7px;background:#eef2e8;cursor:pointer}.cell.on{background:var(--g)}
+.kn{background:var(--s);border-radius:5px;cursor:pointer}.nw{border-bottom:3px solid var(--l);cursor:pointer}
+.tm{font-size:54px;font-weight:800;letter-spacing:-.03em}
+.ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.ph img{width:100%;height:170px;object-fit:cover;border-radius:20px;cursor:pointer}
+.card{background:linear-gradient(135deg,var(--s),var(--l));border-radius:24px;padding:30px;text-align:center;font-size:28px;font-weight:800;cursor:pointer}
+.cf{position:fixed;top:-20px;width:10px;height:14px;animation:f 2.6s linear forwards;z-index:99}
+@keyframes f{to{transform:translateY(110vh) rotate(720deg)}}
+.chip{display:inline-block;border-radius:16px;padding:7px 12px;background:#eef2e8;margin:3px;cursor:pointer}.chip.on{background:var(--l)}
+
+.trk{position:relative;height:56px;border-bottom:3px dashed #c9d3bf;margin:8px 0 12px}
+.cat{position:absolute;bottom:0;font-size:40px;transition:left .6s}.ball{position:absolute;right:0;bottom:0;font-size:36px}
+body{padding-top:env(safe-area-inset-top,0px)}nav{align-items:center}
+.logo{font:600 24px 'Playfair Display',serif;margin-right:14px;white-space:nowrap}
+.hd{background:linear-gradient(135deg,#e2f0d2,#efe0f3);position:relative;overflow:hidden;padding-bottom:0}
+.top{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.6}
+.scr{font:400 36px 'Pinyon Script',cursive;color:#5c9a3c;margin-top:10px}
+.hd h1{font:600 clamp(32px,7vw,58px)/1 'Playfair Display',serif;text-transform:uppercase;letter-spacing:0;margin:0 0 10px;padding-right:70px}
+.hd p{font:italic 500 19px 'Cormorant Garamond',serif;margin:0 0 14px;max-width:560px}
+.st b{font:600 30px 'Playfair Display',serif}
+.ic{position:absolute;right:24px;top:40px;width:62px;height:62px;border-radius:50%;background:#3f7d2c;display:grid;place-items:center;font-size:26px;box-shadow:0 0 0 4px #fff5,0 6px 16px #1f3a1240}
+.lace{height:26px;margin:20px -28px 0;background:radial-gradient(circle at 12px 0,transparent 8px,#e9e4da 9px) 0 0/24px 26px}
+h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+#app{counter-reset:n}.c h3::before{counter-increment:n;content:"(" counter(n,decimal-leading-zero) ") ";opacity:.55}
+.sub{display:flex;gap:20px;overflow-x:auto;margin:16px 6px 0}.sub b{font:italic 500 21px 'Cormorant Garamond',serif;cursor:pointer;opacity:.55;padding-bottom:4px;white-space:nowrap}.sub b.on{opacity:1;border-bottom:2px solid var(--g)}
+.ser{font:italic 500 19px 'Cormorant Garamond',serif}
+.chip.g{background:#e5f2cf}.chip.p{background:#f7dde3}
+.cell.on{background:#6fae4d}.cell.tdy{outline:2px solid var(--g)}
+.day.today{background:var(--g);color:#fff}.ev{background:#efdcf3;color:var(--g)}
+.gr{display:grid;gap:8px;max-width:380px}.gb{width:100%;height:58px;font-size:20px;margin:0}.trk{height:62px}.cat svg,.ball svg{display:block}
+@media(max-width:700px){.logo,.grp{display:none}}
+@media(min-width:701px){nav{position:fixed;left:16px;top:16px;bottom:16px;width:232px;flex-direction:column;align-items:stretch;justify-content:flex-start;overflow-y:auto;background:#fff;border-radius:28px;padding:22px 14px;box-shadow:0 8px 28px #1f3a1219;gap:3px}
+nav button{text-align:left;background:transparent;border-radius:16px;padding:11px 14px}nav button.on{background:var(--g);color:#fff}
+.logo{font-size:30px;margin:0 10px 8px}.grp{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.5;margin:14px 12px 4px}
+#app{margin:0 0 0 264px;max-width:1000px;padding:0 20px 0 6px}}
+button:focus-visible,input:focus-visible{outline:3px solid var(--l)}
+</style></head><body>
+<nav id="nav"></nav><div id="app"></div>
+<input type="file" id="fi" accept="image/*" hidden><input type="file" id="fm" accept=".json" hidden>
+<script>
+const $=s=>document.querySelector(s),p=n=>String(n).padStart(2,'0'),ds=d=>d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+const T=new Date(),td=ds(T),add=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const K='kabinet_anya';let S;
+try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
+const L0=a=>a.map(t=>({t,done:false}));
+function seed(){const y=ds(add(T,-1));return{
+tasks:[{t:'Английский: 40 минут',d:td,part:'утро',time:'09:00',done:false},{t:'Лекция по микроэкономике',d:td,part:'день',time:'13:00',done:false},{t:'Связать 1 ряд сумки',d:td,part:'вечер',time:'19:00',done:false}],
+day:{},ev:{[td]:['Пример: контрольная']},
+habits:[{n:'Английский 40 мин',l:{[y]:1}},{n:'Чтение 10 страниц',l:{}},{n:'Тренировка',l:{}},{n:'Умывание утром',l:{[y]:1}},{n:'Умывание вечером',l:{[y]:1}}],
+focus:{},vocab:[{w:'apple',tr:'яблоко',e:'🍎'},{w:'book',tr:'книга',e:'📖'},{w:'friend',tr:'друг',e:'🫶'}],
+water:{},cyc:[],sym:{},text:'My name is Anna. I study economics in Moscow. I like reading books and knitting bags.',
+trip:{goal:60000,date:'2027-07-01',dep:[{d:td,a:1000,n:'Первый вклад'}]},photos:[],
+L:{subj:L0(['Эконометрика','Макроэкономика','Микроэкономика II','Статистика','Финансы']),
+olymp:L0(['Найти олимпиады вуза на этот семестр','Решать задачи прошлых лет (30 мин)']),
+math:L0(['ЕГЭ профиль: 1 задача в день']),
+a_aud:L0(['Аудирование: 10 минут видео A1 с субтитрами','Диктант: записать 5 фраз на слух']),
+a_read:L0(['Чтение: короткий текст A1, выписать 5 слов']),
+a_write:L0(['Письмо: 3 предложения о своём дне']),
+a_speak:L0(['Говорение: рассказать о себе вслух, 1 минута']),
+a_gram:L0(['Грамматика: to be (am/is/are), 10 упражнений']),
+books:L0(['«Вторая жизнь Уве» — Ф. Бакман','«Кафе на краю земли» — Дж. Стрелеки']),
+train:L0(['Пн: Full body, 20 минут','Ср: пресс и растяжка','Пт: ноги и ягодицы']),
+knit:L0(['Сумка-авоська из хлопка','Игрушка-зайчик']),rec:L0(['Шакшука: яйца, томаты, перец, специи']),bouq:L0(['Букет из атласных лент: розы','Синильная проволока: ромашки'])}}}
+if(!S)S=seed();
+S.pts=S.pts||0;S.wish=S.wish||[{n:'Кофе в любимой кофейне',price:300,pts:15,got:false},{n:'Новая пряжа для сумки',price:1500,pts:60,got:false}];
+let fh=null;const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}if(fh)fh.createWritable().then(w=>w.write(JSON.stringify(S)).then(()=>w.close())).catch(()=>{})};
+let csub='knit',tsub='bank',sub='uni',hsub='train',tab='home',mo=new Date(T.getFullYear(),T.getMonth(),1),tm=null,ts=0,tsec='Английский',ci=0,fl=0;
+const D=()=>S.day[td]||(S.day[td]={w:['','','']});
+const wk0=()=>{const d=new Date(T);d.setDate(d.getDate()-((d.getDay()+6)%7));return d};
+const streak=h=>{let n=0,d=new Date(T);if(!h.l[ds(d)])d=add(d,-1);while(h.l[ds(d)]){n++;d=add(d,-1)}return n};
+const wf=()=>{const by={};let tot=0;for(let i=0;i<7;i++){const f=S.focus[ds(add(wk0(),i))];if(f)for(const s in f){by[s]=(by[s]||0)+f[s];tot+=f[s]}}return{by,tot}};
+const mm=s=>Math.round(s/60),fmt=s=>p(Math.floor(s/60))+':'+p(s%60);
+const GR={home:'good day, Anya',week:'this week',month:'my month',habits:'little rituals',study:'my mind',health:'my body',create:'handmade',trip:'wanderlust',wish:'treat yourself'},IC={home:'🌿',week:'🗓',month:'📅',habits:'✔',study:'💡',health:'🏋',create:'🧶',trip:'✈',wish:'🎁'};
+const hd=(h,s,st,bg)=>`<div class=hd ${bg?`style="background:${bg}"`:''}><div class=top><span>(${T.getDate()}) anya’s journal</span><span>${T.toLocaleDateString('ru',{weekday:'long'})}</span></div><div class=scr>${GR[tab]}</div><h1>${h}</h1><p>${s}</p><div class=st>${st.map(x=>`<div><b>${x[0]}</b>${x[1]}</div>`).join('')}</div><span class=ic>${IC[tab]}</span><div class=lace></div></div>`;
+const cnt=k=>{const a=S.L[k]||[];return a.filter(x=>x.done).length+'/'+a.length};
+const list=(k,t,ph='Добавить')=>{const a=S.L[k]||(S.L[k]=[]);return `<div class=c><h3>${t} <small>${cnt(k)}</small></h3>${a.map((x,i)=>`<div class=r><input type=checkbox ${x.done?'checked':''} data-a=tg data-k=${k} data-i=${i}><span class="${x.done?'done':''}" data-a=ed data-k=${k} data-i=${i}>${esc(x.t)}</span><i data-a=rm data-k=${k} data-i=${i}>×</i></div>`).join('')}<button class=btn data-a=ad data-k=${k} data-p="${ph}">+ ${ph}</button></div>`};
+const trow=(x,i)=>`<div class=r><input type=checkbox ${x.done?'checked':''} data-a=ttg data-i=${i}><span class="${x.done?'done':''}"><b>${x.time||''}</b> ${esc(x.t)}</span><i data-a=tom data-i=${i} title="на завтра">→</i><i data-a=trm data-i=${i}>×</i></div>`;
+const subs=(k,cur,a)=>`<div class=sub>${a.map(x=>`<b class="${x[0]==cur?'on':''}" data-a=ss data-k=${k} data-s=${x[0]}>${x[1]}</b>`).join('')}</div>`;
+const rec=(k,v,low)=>{S.rec=S.rec||{};const o=S.rec[k];if(o==null||(low?v<o:v>o)){S.rec[k]=v;save();return true}return false};
+const gm=h=>{const e=$('#gm');if(e)e.innerHTML=h};
+let gs={};const MT={op:'mix',lv:1,n:10};
+function mq(){const lv=MT.lv,mx=[20,100,1000][lv-1],m=[10,12,25][lv-1],ops=MT.op=='mix'?['+','-','×','÷']:[MT.op],o=ops[Math.floor(Math.random()*ops.length)],Rn=x=>Math.floor(Math.random()*x)+1;let a,b,ans;
+if(o=='+'){a=Rn(mx);b=Rn(mx);ans=a+b}else if(o=='-'){a=Rn(mx);b=Rn(a);ans=a-b}else if(o=='×'){a=Rn(m);b=Rn(m);ans=a*b}else{b=Rn(m);ans=Rn(m);a=b*ans}
+return{q:a+' '+o+' '+b,ans}}
+const G={
+sh(t){if(!t.dataset.n){gs={k:'sh',a:[...Array(25)].map((_,i)=>i+1).sort(()=>Math.random()-.5),next:1,t0:0};G.shr();return}
+const n=+t.dataset.n;if(n!=gs.next)return;if(n==1)gs.t0=Date.now();gs.next++;if(gs.next>25){const x=+((Date.now()-gs.t0)/1000).toFixed(1),b=rec('sh',x,1);gm(`<h3>Готово: ${x} с</h3>${b?'Новый рекорд! 🎉':''}`);if(b)confetti();return}G.shr()},
+shr(){gm(`<h3>Найди числа по порядку. Дальше: ${gs.next}</h3><div class=gr style="grid-template-columns:repeat(5,1fr)">${gs.a.map(n=>`<button class="n gb ${n<gs.next?'on':''}" data-a=g data-g=sh data-n=${n}>${n}</button>`).join('')}</div>`)},
+dg(t){if(t.dataset.v=='go'){const e=$('#dgi');if(!e)return;if(e.value.trim()==gs.s){gs.L++;G.dg0()}else{const b=rec('dg',gs.L-1);gm(`<h3>Было ${gs.s}. Твой результат: ${gs.L-1} цифр</h3>${b?'Новый рекорд! 🎉':''}`)}return}gs={k:'dg',L:3};G.dg0()},
+dg0(){gs.s=[...Array(gs.L)].map(()=>Math.floor(Math.random()*10)).join('');gm(`<div class=tm>${gs.s}</div>`);setTimeout(()=>{gm(`<h3>Повтори ${gs.L} цифр</h3><input type=text id=dgi inputmode=numeric><button class=btn data-a=g data-g=dg data-v=go>Проверить</button>`);const e=$('#dgi');if(e)e.focus()},600*gs.L+700)},
+cs(t){if(!t.dataset.c){gs={k:'cs',i:0,e:0,t0:Date.now()};G.cs0();return}if(t.dataset.c!=gs.ink)gs.e++;gs.i++;if(gs.i>=10){const x=+((Date.now()-gs.t0)/1000+gs.e*2).toFixed(1),b=rec('cs',x,1);gm(`<h3>${x} с (ошибок: ${gs.e}, штраф 2 с)</h3>${b?'Новый рекорд! 🎉':''}`);return}G.cs0()},
+cs0(){const C=[['красный','#d33'],['синий','#36c'],['зелёный','#2a2'],['жёлтый','#c90']],w=C[Math.floor(Math.random()*4)],c=C[Math.floor(Math.random()*4)];gs.ink=c[0];gm(`<h3>Нажми цвет букв, а не слово (${gs.i+1}/10)</h3><div class=tm style="color:${c[1]}">${w[0]}</div>${C.map(x=>`<button class=btn data-a=g data-g=cs data-c=${x[0]}>${x[0]}</button>`).join('')}`)},
+pr(t){if(!t.dataset.i){const e=['🍎','🌿','🧶','🐈','🌸','📖'];gs={k:'pr',c:[...e,...e].sort(()=>Math.random()-.5),o:[],d:[],m:0,t0:Date.now(),lock:0};G.pr0();return}
+if(gs.lock)return;const i=+t.dataset.i;if(gs.o.includes(i)||gs.d.includes(i))return;gs.o.push(i);
+if(gs.o.length==2){gs.m++;const[a,b]=gs.o;if(gs.c[a]==gs.c[b]){gs.d.push(a,b);gs.o=[]}else{gs.lock=1;G.pr0();setTimeout(()=>{gs.o=[];gs.lock=0;G.pr0()},700);return}}
+if(gs.d.length==12){const x=+((Date.now()-gs.t0)/1000).toFixed(1),b=rec('pr',x,1);gm(`<h3>Все пары за ${x} с, ходов: ${gs.m}</h3>${b?'Новый рекорд! 🎉':''}`);return}G.pr0()},
+pr0(){gm(`<div class=gr style="grid-template-columns:repeat(4,1fr)">${gs.c.map((x,i)=>`<button class="n gb ${gs.d.includes(i)?'on':''}" data-a=g data-g=pr data-i=${i}>${gs.o.includes(i)||gs.d.includes(i)?x:'?'}</button>`).join('')}</div>`)},
+set(t){MT[t.dataset.k]=t.dataset.k=='op'?t.dataset.v:+t.dataset.v;R()},
+mt(t){const v=t.dataset.v;if(v=='go'){gs={k:'mt',i:0,ok:0,t0:Date.now(),q:mq()};G.mt0();return}
+const x=$('#mi');if(!x||!gs.q)return;if(+x.value==gs.q.ans)gs.ok++;gs.i++;const el=(Date.now()-gs.t0)/1000;
+if(MT.n?gs.i>=MT.n:el>=60){const key='m|'+MT.op+'|'+MT.lv+'|'+MT.n;let msg;
+if(MT.n){const z=+el.toFixed(1);msg=`${gs.ok}/${gs.i} верно за ${z} с`;if(gs.ok==gs.i&&rec(key,z,1)){msg+=' · рекорд! 🎉';confetti()}}
+else{msg=`За минуту: ${gs.ok} верно из ${gs.i}`;if(rec(key,gs.ok)){msg+=' · рекорд! 🎉';confetti()}}
+gm(`<h3>${msg}</h3>`);gs={};return}gs.q=mq();G.mt0()},
+mt0(){gm(`<h3>${gs.i+1}${MT.n?' из '+MT.n:''}</h3><div class=tm>${gs.q.q} = ?</div><input type=text id=mi inputmode=numeric><button class=btn data-a=g data-g=mt data-v=ans>Ответ</button>`);const e=$('#mi');if(e)e.focus()}};
+const BRAIN=()=>{const Rc=S.rec||{},cd=(g,ti,tx,rc)=>`<div class=c><h3>${ti}</h3>${tx}<br><button class=btn data-a=g data-g=${g}>▶ Начать</button> <small>${rc}</small></div>`;
+return `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 14px">${cd('sh','Таблица Шульте','Найди числа от 1 до 25 по порядку как можно быстрее — расширяет поле зрения и внимание.',Rc.sh?'рекорд: '+Rc.sh+' с':'')+cd('dg','Числа на память','Цифры появляются на экране — повтори их. Каждый раз на одну длиннее.',Rc.dg?'рекорд: '+Rc.dg+' цифр':'')+cd('cs','Цвет и слово','Слово «красный» написано синим — нажми цвет букв, а не слово.',Rc.cs?'рекорд: '+Rc.cs+' с':'')+cd('pr','Найди пары','Переворачивай карточки и находи одинаковые.',Rc.pr?'рекорд: '+Rc.pr+' с':'')}</div><div class=c id=gm>Выбери тренажёр и нажми «Начать».</div>`};
+const CALC=()=>{const ch=(k,v,l)=>`<span class="chip ${MT[k]==v?'on':''}" data-a=g data-g=set data-k=${k} data-v="${v}">${l}</span>`,Rc=S.rec||{};
+return `<div class=c><h3>Счёт в уме</h3><p>Что решаем</p>${[['+','+ Сложение'],['-','− Вычитание'],['×','× Умножение'],['÷','÷ Деление'],['mix','± Всё вперемешку']].map(x=>ch('op',x[0],x[1])).join('')}<p>Сложность</p>${[[1,'Лёгкий'],[2,'Средний'],[3,'Сложный']].map(x=>ch('lv',x[0],x[1])).join('')}<p>Сколько</p>${[[10,'10 примеров'],[20,'20 примеров'],[30,'30 примеров'],[0,'1 минута, сколько успею']].map(x=>ch('n',x[0],x[1])).join('')}<br><button class=btn data-a=g data-g=mt data-v=go>▶ Начать</button></div><div class=c id=gm>Выбери настройки и нажми «Начать».</div><div class=c><h3>Рекорды</h3>${Object.keys(Rc).filter(k=>k[0]=='m').map(k=>{const p=k.split('|');return `<div class=r><span>${p[1]=='mix'?'всё вперемешку':p[1]} · ${['лёгкий','средний','сложный'][p[2]-1]} · ${p[3]=='0'?'1 минута':p[3]+' примеров'}</span><b>${Rc[k]}${p[3]=='0'?'':' с'}</b></div>`}).join('')||'Пока пусто'}</div>`};
+const tpts=()=>S.tasks.filter(x=>x.d==td&&x.done).length+(D().closed?5:0);
+const CAT=o=>`<svg viewBox="0 0 64 52" width=64 height=52><path d="M8 40q-8-8 0-15" stroke="#b9b2a8" stroke-width=5 fill=none stroke-linecap=round /><ellipse cx=30 cy=34 rx=24 ry=16 fill="#b9b2a8"/><circle cx=41 cy=22 r=13 fill="#d3ccc1"/><path d="M31 14l2-11 8 7zM45 10l8-8 2 13z" fill="#b9b2a8"/>${o?'<circle cx=37 cy=21 r=1.8 fill=#333 /><circle cx=46 cy=21 r=1.8 fill=#333 />':'<path d="M35 21h4M44 21h4" stroke=#333 stroke-width=1.6 />'}<circle cx=41.5 cy=25 r=1.5 fill=#e8a0a8 /></svg>`;
+const BALL='<svg viewBox="0 0 40 40" width=38 height=38><circle cx=20 cy=20 r=17 fill=#d9622b /><path d="M6 14q14 8 28 0M5 22q15 8 30 0M12 32q8-10 6-26" stroke=#f2a07a fill=none stroke-width=2 /></svg>';
+function cat(){const tt=S.tasks.filter(x=>x.d==td),dn=tt.filter(x=>x.done).length,pc=tt.length?dn/tt.length:0,w=S.wish.filter(x=>!x.got).sort((a,b)=>a.pts-b.pts)[0];
+return `<div class=c><i class=ser>${!dn?'котик ещё спит… отметь первую задачу':pc<1?'котик идёт к клубку':'котик дошёл до клубка! 🎉'}</i><span style="float:right">${dn}/${tt.length} · ${Math.round(pc*100)}%</span><div class=trk><span class=cat style="left:calc((100% - 64px)*${pc})">${CAT(dn)}</span><span class=ball>${BALL}</span></div><span class="chip g">⭐ <b>${S.pts}</b> баллов · сегодня +${tpts()}</span>${w?`<span class="chip p">🎁 ${esc(w.n)} ${Math.min(S.pts,w.pts)}/${w.pts}</span>`:''}<span style="float:right;text-decoration:underline;cursor:pointer" data-a=tab data-t=wish>магазин наград →</span><br><small>+1 балл за задачу, +5 за закрытый день</small></div>`}
+const V={
+home(){const d=D(),h=T.getHours(),g=h<5?'Доброй ночи':h<12?'Доброе утро':h<18?'Добрый день':'Добрый вечер';
+const tt=S.tasks.filter(x=>x.d==td),dn=tt.filter(x=>x.done).length,hb=S.habits.filter(x=>x.l[td]).length,w=wf();
+const sc=k=>[1,2,3,4,5].map(n=>`<button class="n ${d[k]==n?'on':''}" data-a=sc data-k=${k} data-v=${n}>${n}</button>`).join('');
+const parts=['утро','день','вечер'].map(pt=>`<h4>${pt}</h4>`+S.tasks.map((x,i)=>x.d==td&&x.part==pt?trow(x,i):'').join('')+`<button class=btn data-a=tadd data-part="${pt}" data-d=${td}>+</button>`).join('');
+const wd=S.vocab.length?S.vocab[Math.floor(T/864e5)%S.vocab.length]:null;
+return hd(g+', Аня',T.toLocaleDateString('ru',{weekday:'long',day:'numeric',month:'long'}),[[dn+'/'+tt.length,'задач'],[hb+'/'+S.habits.length,'привычек'],[mm(w.tot)+' мин','в фокусе за неделю']])+
+cat()+`<div class=c><h3>Старт дня</h3>Энергия<br>${sc('e')}<br><br>Настроение<br>${sc('m')}<br><br><input type=text data-f=main placeholder="Одно главное дело на сегодня" value="${esc(d.main||'')}"></div>
+<div class=c><h3>План на сегодня</h3>${parts}</div>
+<div class=c><h3>Таймер фокуса</h3><select data-f=tsec>${['Английский','Универ','Математика','Творчество','Чтение','Спорт'].map(s=>`<option ${s==tsec?'selected':''}>${s}</option>`).join('')}</select><div class=tm id=tm>${fmt(ts)}</div><button class=btn data-a=${tm?'tstop':'tstart'}>${tm?'Стоп и сохранить':'Старт'}</button><button class="btn l" data-a=tman>+ вручную</button><p>За неделю: ${Object.keys(w.by).map(s=>s+' '+mm(w.by[s])+' мин').join(' · ')||'пока пусто'}</p></div>
+<div class=c><h3>Слово дня</h3>${wd?`<div class=card data-a=spk data-w="${esc(wd.w)}">${wd.e} ${esc(wd.w)} <small>— ${esc(wd.tr)} 🔊</small></div>`:'Добавь слова в разделе «Учёба»'}</div>
+<div class=c><h3>Привычки</h3>${S.habits.map((x,i)=>`<div class=r><input type=checkbox ${x.l[td]?'checked':''} data-a=hh data-i=${i}><span>${esc(x.n)}</span><b>🔥 ${streak(x)}</b></div>`).join('')}</div>
+<div class=c><h3>Итог дня</h3>${d.closed?'<b>День закрыт 🎉 Ты молодец!</b><br><button class=btn data-a=reopen>Открыть снова</button>':''}
+<p>Одно слово про день</p><input type=text data-f=word value="${esc(d.word||'')}"><p>Что получилось (3 вещи)</p>${[0,1,2].map(i=>`<input type=text style="margin-bottom:6px" data-f=w${i} value="${esc(d.w[i]||'')}">`).join('')}<p><small>Сегодня сделано задач: ${dn}. Даже минимум — это результат.</small></p>${d.closed?'':'<button class=btn data-a=close>Закрыть день 🎉</button>'}</div>`},
+week(){const w0=wk0(),gk='g'+ds(w0);let dn=0,all=0;let days='';for(let i=0;i<7;i++){const k=ds(add(w0,i));const ts_=S.tasks.map((x,j)=>x.d==k?[x,j]:null).filter(Boolean);dn+=ts_.filter(x=>x[0].done).length;all+=ts_.length;days+=`<div class=c><h3>${add(w0,i).toLocaleDateString('ru',{weekday:'long',day:'numeric',month:'short'})}</h3>${ts_.map(x=>trow(x[0],x[1])).join('')}<button class=btn data-a=tadd data-part="день" data-d=${k}>+ задача</button></div>`}
+return hd('Неделя','с '+w0.toLocaleDateString('ru',{day:'numeric',month:'long'}),[[dn+'/'+all,'задач'],[cnt(gk),'целей']])+list(gk,'Цели недели','Цель')+`<button class=btn data-a=carry>Перенести невыполненное с прошлых дней на сегодня</button>`+days},
+month(){const y=mo.getFullYear(),m=mo.getMonth(),n=new Date(y,m+1,0).getDate(),off=(mo.getDay()+6)%7;let c='',cl=0,ne=0;for(let i=0;i<off;i++)c+='<div></div>';
+for(let d=1;d<=n;d++){const k=y+'-'+p(m+1)+'-'+p(d),r=S.day[k]&&S.day[k].closed;if(r)cl++;ne+=(S.ev[k]||[]).length;c+=`<div class="day ${r?'ring':''} ${k==td?'today':''}" data-a=evadd data-d=${k}><b>${d}</b>${(S.ev[k]||[]).map((e,i)=>`<span class=ev data-a=evrm data-d=${k} data-i=${i}>${esc(e)}</span>`).join('')}</div>`}
+return hd(mo.toLocaleDateString('ru',{month:'long',year:'numeric'}),'Календарь месяца',[[cl,'закрытых дней (кольца)'],[ne,'событий']])+`<div class=c><button class=btn data-a=mp>←</button><button class=btn data-a=mn>→</button> <small>Нажми на день — добавить событие, на событие — удалить. Кольцо = закрытый день.</small><br><br><div class=g7>${['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(x=>`<b>${x}</b>`).join('')}${c}</div></div>`},
+habits(){const y=T.getFullYear(),m=T.getMonth(),n=new Date(y,m+1,0).getDate(),ds_=[...Array(n)].map((_,i)=>y+'-'+p(m+1)+'-'+p(i+1));let tot=0;S.habits.forEach(h=>ds_.forEach(k=>{if(h.l[k])tot++}));
+return hd('Привычки','трекер на месяц',[[tot,'отметок'],[S.habits.length,'привычек']])+`<div class=c style="overflow-x:auto"><table><tr><th></th>${ds_.map((_,i)=>`<th>${i+1}</th>`).join('')}</tr>${S.habits.map((h,hi)=>`<tr><td class=hn>${esc(h.n)} <i data-a=hrm data-i=${hi}>×</i></td>${ds_.map(k=>`<td><span class="cell ${h.l[k]?'on':''} ${k==td?'tdy':''}" data-a=hc data-i=${hi} data-d=${k}></span></td>`).join('')}</tr>`).join('')}</table><button class=btn data-a=hadd>+ Новая привычка</button></div>
+<div class=c><h3>Чтение, чтобы нравилось</h3>Минимум на тяжёлый день — 1 страница. Читай то, что хочется: современная проза, лёгкие романы, аудиокнига по дороге. Не зашла за 50 страниц — смело бросай. Книги — в разделе «Учёба».</div>`},
+study(){const w=wf(),eg=[['a_aud','Аудирование'],['a_read','Чтение'],['a_write','Письмо'],['a_speak','Говорение'],['a_gram','Грамматика']],v=S.vocab[ci%Math.max(S.vocab.length,1)];
+const P={uni:list('subj','Университет: предметы семестра','Предмет (добавляй/удаляй сколько нужно)')+list('olymp','Олимпиады (для магистратуры)','Олимпиада / дедлайн')+list('math','Математика (ЕГЭ профиль)','Задание'),
+eng:`<div class=c><h3>Английский: 40 минут в день</h3>Примерно: аудирование 10 · лексика 10 · чтение 5 · грамматика 10 · письмо/говорение 5.<br><button class=btn data-a=rst>Начать новый день (сбросить отметки)</button></div>`+eg.map(x=>list(x[0],x[1],'Задание')).join('')+`<div class=c><h3>Текст → задания</h3><textarea id=tx>${esc(S.text||'')}</textarea><button class=btn data-a=hl>Подсветить новые слова</button><button class="btn l" data-a=clz>Вставь пропущенные слова</button><button class=btn data-a=chk>Проверить</button><div id=out style="margin-top:12px;line-height:2"></div></div>`,
+voc:`<div class=c><h3>Словарь</h3>${S.vocab.map((x,i)=>`<div class=r><span>${x.e} <b>${esc(x.w)}</b> — ${esc(x.tr)}</span><i data-a=spk data-w="${esc(x.w)}">🔊</i><i data-a=vrm data-i=${i}>×</i></div>`).join('')}<button class=btn data-a=vadd>+ Слово</button></div><div class=c><h3>Карточки</h3>${v?`<div class=card data-a=flip>${fl?v.e+' '+esc(v.tr):esc(v.w)}</div><button class=btn data-a=nx>Дальше</button>`:'Нет слов'}</div>`,
+book:list('books','Книги','Книга'),brain:BRAIN(),calc:CALC()};
+return hd('Учёба','5 семестр · английский A0–A1',[[cnt('subj'),'предметов'],[S.vocab.length,'слов'],[mm(w.by['Английский']||0)+' мин','англ. за неделю']])+`<div class=sub>${[['uni','Университет'],['eng','Английский'],['voc','Словарь'],['book','Книги'],['brain','Тренажёры мозга'],['calc','Счёт в уме']].map(x=>`<b class="${x[0]==sub?'on':''}" data-a=sub data-s=${x[0]}>${x[1]}</b>`).join('')}</div>`+P[sub]},
+health(){const ph=[[5,'Менструация','Железо (гречка, чечевица), тёплая еда. Лёгкая йога, прогулки.'],[13,'Фолликулярная фаза','Энергии больше: белок, овощи. Силовые и кардио.'],[16,'Овуляция','Пик сил: интервальные и силовые. Больше воды.']];
+const last=S.cyc.length?S.cyc[S.cyc.length-1]:null;let cy='Отметь первый день цикла.',dd=0,fn='—';if(last){const n=Math.floor((new Date(td)-new Date(last))/864e5)+1;dd=(n-1)%28+1;const f=ph.find(x=>dd<=x[0])||[0,'Лютеиновая фаза','Магний, сложные углеводы. Пилатес, растяжка, спокойное кардио.'];fn=f[1];cy=`<b>День ${dd} · ${f[1]}</b><br>${f[2]}`}
+const wt=S.water[td]||0,sy=S.sym[td]||[];
+const bg={train:'linear-gradient(135deg,#e1f2d2,#cfe8b8)',food:'linear-gradient(135deg,#f9ecd2,#f1dfb8)',cycle:'linear-gradient(135deg,#f6e6f6,#e8d0ee)'}[hsub];
+const pills=`<div style="margin-top:6px">${[['train','🏋 Тренировки'],['food','🥣 Питание и вода'],['cycle','🌙 Цикл']].map(x=>`<button class="btn ${x[0]==hsub?'':'l'}" data-a=hs data-s=${x[0]}>${x[1]}</button>`).join('')}</div>`;
+const B={train:list('train','Тренировки на неделю','Тренировка'),
+food:`<div class=c><h3>Вода</h3><div class=bar><b style="width:${Math.min(100,wt*12.5)}%"></b></div><button class=btn data-a=wm>−</button><button class=btn data-a=wp>+ стакан</button></div>`+list('meal','Питание: идеи и заметки','Блюдо/заметка'),
+cycle:`<div class=c><h3>Цикл</h3>${cy}<br><button class=btn data-a=cst>Отметить начало цикла</button><p>Симптомы сегодня:<br>${['Боль','Усталость','Настроение ↓','Отёки','Тяга к сладкому','Всё хорошо'].map(s=>`<span class="chip ${sy.includes(s)?'on':''}" data-a=sym data-s="${s}">${s}</span>`).join('')}</p><small>Фаза приблизительная (цикл 28 дней), это не медицинский совет.</small></div>`};
+return pills+hd({train:'Тренировки',food:'Питание',cycle:'Цикл'}[hsub],'тело и состояние',[[wt+'/8','стаканов воды'],[cnt('train'),'тренировок'],[dd?'день '+dd:'—',fn]],bg)+B[hsub]},
+create(){return hd('Творчество','вязание · кухня · букеты',[[cnt('knit'),'вязание'],[cnt('rec'),'рецептов'],[cnt('bouq'),'букетов']])+subs('c',csub,[['knit','Вязание'],['rec','Рецепты'],['bouq','Букеты']])+({knit:list('knit','Вязание: сумки и игрушки','Проект'),rec:list('rec','Красивые рецепты','Название: состав / ссылка'),bouq:list('bouq','Букеты из лент и синельной проволоки','Идея букета')})[csub]},
+wish(){const a=S.wish;return hd('Хотелки','магазин наград',[[S.pts,'баллов'],[a.filter(x=>x.got).length+'/'+a.length,'получено']])+`<div class=c><h3>Мои хотелки</h3>${a.map((x,i)=>`<div class=r style="flex-wrap:wrap"><span class="${x.got?'done':''}" data-a=wed data-i=${i}><b>${esc(x.n)}</b> · ${x.price} ₽ · ${x.pts} баллов</span>${x.got?'✅':`<button class=btn data-a=wbuy data-i=${i} ${S.pts>=x.pts?'':'style="opacity:.45"'}>Получить</button>`}<i data-a=wrm2 data-i=${i}>×</i><div class=bar style="width:100%"><b style="width:${Math.min(100,S.pts/x.pts*100)}%"></b></div></div>`).join('')}<button class=btn data-a=wadd>+ Хотелка</button><p><small>Баллы: +1 за выполненную задачу, +5 за закрытый день. Нажми на название, чтобы изменить.</small></p></div>`},
+trip(){const t=S.trip,sum=t.dep.reduce((a,x)=>a+x.a,0),left=Math.max(0,t.goal-sum),wk=Math.max(1,Math.ceil((new Date(t.date)-T)/6048e5));
+return hd('Путешествие','отпуск летом с подругой',[[sum+' ₽','накоплено'],[Math.round(sum/t.goal*100)+'%','цели '+t.goal+' ₽'],[Math.ceil(left/wk)+' ₽','в неделю до '+t.date]])+
+subs('t',tsub,[['bank','Копилка'],['ins','Вдохновение']])+`${tsub=='bank'?`<div class=c><h3>Копилка</h3><div class=bar><b style="width:${Math.min(100,sum/t.goal*100)}%"></b></div><button class=btn data-a=tg1>Цель (сумма)</button><button class=btn data-a=tg2>Дата поездки</button><button class="btn l" data-a=dadd>+ Отложила</button>${t.dep.map((x,i)=>`<div class=r><span>${x.d} · ${esc(x.n||'')}</span><b>${x.a} ₽</b><i data-a=drm data-i=${i}>×</i></div>`).join('')}</div>`:''}${tsub=='ins'?`<div class=c><h3>Доска вдохновения</h3><div class=ph>${S.photos.map((u,i)=>`<img src="${esc(u)}" data-a=phrm data-i=${i} alt="">`).join('')}</div><button class=btn data-a=phadd>+ Фото по ссылке</button><button class="btn l" data-a=phup>+ Загрузить фото</button><br><small>Из Pinterest: нажми на картинку → «Копировать адрес изображения». Нажми на фото, чтобы убрать.</small></div>`:''}`}};
+const foot=()=>`<div class=c>${!S.lb||Date.now()-S.lb>6048e5?'<p>⚠️ Копия не делалась больше недели. Нажми «Экспорт данных».</p>':'<p><small>Последняя копия: '+new Date(S.lb).toLocaleDateString('ru')+'</small></p>'}<button class=btn data-a=exp>Экспорт данных</button><button class=btn data-a=imp>Импорт данных</button><button class="btn l" data-a=af>Автосохранение в файл</button></div>`;
+function R(){$('#nav').innerHTML='<span class=logo>anya<b style="color:#C98FD3">•</b></span>'+[['home','Главная'],['week','Неделя'],['month','Месяц'],['habits','Привычки'],['study','Учёба'],['health','Здоровье'],['create','Творчество'],['trip','Путешествие'],['wish','Хотелки']].map(x=>(x[0]=='home'?'<span class=grp>Общее</span>':x[0]=='study'?'<span class=grp>Проекты</span>':'')+`<button class="${x[0]==tab?'on':''}" data-a=tab data-t=${x[0]}>${IC[x[0]]} ${x[1]}</button>`).join('');$('#app').innerHTML=V[tab]()+foot()}
+function confetti(){for(let i=0;i<60;i++){const e=document.createElement('div');e.className='cf';e.style.left=Math.random()*100+'vw';e.style.background=['#B6D98C','#C98FD3','#1F3A12','#f4c84a'][i%4];e.style.animationDelay=Math.random()*.8+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),3600)}}
+const spk=w=>{try{const u=new SpeechSynthesisUtterance(w);u.lang='en-US';speechSynthesis.speak(u)}catch(e){}};
+function hl(){const t=$('#tx').value;S.text=t;save();$('#out').innerHTML=t.split(/([A-Za-z']+)/).map(x=>/^[A-Za-z']+$/.test(x)?`<span class="${S.vocab.some(v=>v.w==x.toLowerCase())?'kn':'nw'}" data-a=nw data-w="${x.toLowerCase()}">${x}</span>`:esc(x)).join('')+'<p><small>Нажми на подчёркнутое слово — оно попадёт в словарь.</small></p>'}
+function clz(){const t=$('#tx').value;S.text=t;save();let n=0;$('#out').innerHTML=t.split(/([A-Za-z']+)/).map(x=>{if(/^[A-Za-z']+$/.test(x)&&x.length>2&&++n%4==0)return `<input type=text data-ans="${x.toLowerCase()}" style="width:${x.length*12+30}px;padding:2px 6px">`;return esc(x)}).join('')}
+function up(f){const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{const c=document.createElement('canvas'),s=Math.min(1,500/i.width);c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);S.photos.push(c.toDataURL('image/jpeg',.7));save();R()};i.src=r.result};r.readAsDataURL(f)}
+function atask(d,pt){const v=prompt('Задача (лучше маленькая: не «написать пост», а «один абзац»)');if(!v)return;const tm_=prompt('Время, например 10:30 (можно пропустить)')||'';S.tasks.push({t:v,d,part:pt,time:tm_,done:false});S.tasks.sort((a,b)=>a.time<b.time?-1:1)}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t)return;const a=t.dataset.a,k=t.dataset.k,d=t.dataset.d,I=+t.dataset.i;let r=1;
+if(a=='tab'){tab=t.dataset.t;scrollTo(0,0)}else if(a=='sub')sub=t.dataset.s;else if(a=='ss'){if(k=='c')csub=t.dataset.s;else tsub=t.dataset.s}else if(a=='g'){G[t.dataset.g](t);r=0}else if(a=='hs')hsub=t.dataset.s;
+else if(a=='tg')S.L[k][I].done=!S.L[k][I].done;
+else if(a=='ed'){const x=S.L[k][I],v=prompt('Изменить',x.t);if(v===null)r=0;else if(v.trim())x.t=v;else S.L[k].splice(I,1)}
+else if(a=='rm')S.L[k].splice(I,1);
+else if(a=='ad'){const v=prompt(t.dataset.p);if(v)S.L[k].push({t:v,done:false})}
+else if(a=='sc')D()[k]=+t.dataset.v;
+else if(a=='tadd')atask(d,t.dataset.part);
+else if(a=='ttg'){const x=S.tasks[I];x.done=!x.done;if(x.done&&!x.paid){x.paid=1;S.pts++}}
+else if(a=='tom')S.tasks[I].d=ds(add(T,1));
+else if(a=='trm')S.tasks.splice(I,1);
+else if(a=='carry')S.tasks.forEach(x=>{if(!x.done&&x.d<td)x.d=td});
+else if(a=='hh'){const h=S.habits[I];if(h.l[td])delete h.l[td];else h.l[td]=1}
+else if(a=='hc'){const h=S.habits[I];if(h.l[d])delete h.l[d];else h.l[d]=1}
+else if(a=='hadd'){const v=prompt('Название привычки');if(v)S.habits.push({n:v,l:{}})}
+else if(a=='hrm'){if(confirm('Удалить привычку?'))S.habits.splice(I,1)}
+else if(a=='close'){const x=D();x.closed=true;if(!x.paid){x.paid=1;S.pts+=5}confetti()}
+else if(a=='reopen')D().closed=false;
+else if(a=='tstart'){ts=0;tm=setInterval(()=>{ts++;const x=$('#tm');if(x)x.textContent=fmt(ts)},1000)}
+else if(a=='tstop'){clearInterval(tm);tm=null;S.focus[td]=S.focus[td]||{};S.focus[td][tsec]=(S.focus[td][tsec]||0)+ts;ts=0}
+else if(a=='tman'){const v=+prompt('Сколько минут добавить?');if(v>0){S.focus[td]=S.focus[td]||{};S.focus[td][tsec]=(S.focus[td][tsec]||0)+v*60}}
+else if(a=='evadd'){const v=prompt('Событие на '+d+' (контрольная, врач, день рождения…)');if(v)(S.ev[d]=S.ev[d]||[]).push(v)}
+else if(a=='evrm'){if(confirm('Удалить событие?'))S.ev[d].splice(I,1)}
+else if(a=='mp')mo=new Date(mo.getFullYear(),mo.getMonth()-1,1);
+else if(a=='mn')mo=new Date(mo.getFullYear(),mo.getMonth()+1,1);
+else if(a=='rst')Object.keys(S.L).filter(x=>x[0]=='a'&&x[1]=='_').forEach(x=>S.L[x].forEach(y=>y.done=false));
+else if(a=='wadd'){const n=prompt('Что хочешь?');if(n){const price=+prompt('Цена, ₽')||0,pts=+prompt('Сколько баллов нужно набрать?')||10;S.wish.push({n,price,pts,got:false})}}
+else if(a=='wed'){const x=S.wish[I],n=prompt('Название',x.n);if(n){x.n=n;x.price=+prompt('Цена, ₽',x.price)||0;x.pts=+prompt('Баллов нужно',x.pts)||x.pts}}
+else if(a=='wrm2'){if(confirm('Удалить хотелку?'))S.wish.splice(I,1)}
+else if(a=='wbuy'){const x=S.wish[I];if(S.pts>=x.pts){S.pts-=x.pts;x.got=true;confetti()}else alert('Не хватает баллов: '+(x.pts-S.pts))}
+else if(a=='spk'){spk(t.dataset.w);r=0}
+else if(a=='hl'){hl();r=0}else if(a=='clz'){clz();r=0}
+else if(a=='chk'){document.querySelectorAll('[data-ans]').forEach(i=>i.style.background=i.value.trim().toLowerCase()==i.dataset.ans?'#B6D98C':'#f6c6c6');r=0}
+else if(a=='nw'){const w=t.dataset.w;if(!S.vocab.some(v=>v.w==w)){const tr=prompt('Перевод слова «'+w+'»');if(tr)S.vocab.push({w,tr,e:prompt('Эмодзи-картинка (например 🍎)')||'🔤'})}save();R();hl();return}
+else if(a=='vadd'){const w=prompt('Слово');if(w){const tr=prompt('Перевод')||'';S.vocab.push({w,tr,e:prompt('Эмодзи')||'🔤'})}}
+else if(a=='vrm')S.vocab.splice(I,1);
+else if(a=='flip')fl=1-fl;else if(a=='nx'){ci++;fl=0}
+else if(a=='wp')S.water[td]=(S.water[td]||0)+1;else if(a=='wm')S.water[td]=Math.max(0,(S.water[td]||0)-1);
+else if(a=='cst'){const v=prompt('Дата начала (ГГГГ-ММ-ДД)',td);if(v&&!isNaN(new Date(v)))S.cyc.push(v)}
+else if(a=='sym'){const s=t.dataset.s,x=S.sym[td]=S.sym[td]||[];x.includes(s)?x.splice(x.indexOf(s),1):x.push(s)}
+else if(a=='tg1'){const v=+prompt('Сколько хочешь накопить, ₽?',S.trip.goal);if(v>0)S.trip.goal=v}
+else if(a=='tg2'){const v=prompt('Дата поездки (ГГГГ-ММ-ДД)',S.trip.date);if(v&&!isNaN(new Date(v)))S.trip.date=v}
+else if(a=='dadd'){const v=+prompt('Сколько отложила, ₽?');if(v)S.trip.dep.push({d:td,a:v,n:prompt('Откуда (подарок, подработка…)')||''})}
+else if(a=='drm')S.trip.dep.splice(I,1);
+else if(a=='phadd'){const v=prompt('Ссылка на картинку');if(v)S.photos.push(v)}
+else if(a=='phrm'){if(confirm('Убрать фото?'))S.photos.splice(I,1)}
+else if(a=='phup'){$('#fi').click();return}
+else if(a=='exp'){S.lb=Date.now();save();const l=document.createElement('a');l.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));l.download='kabinet-anya.json';l.click();R();return}
+else if(a=='af'){r=0;if(!window.showSaveFilePicker)alert('Это работает только в Chrome или Edge на компьютере');else showSaveFilePicker({suggestedName:'kabinet-avtokopiya.json'}).then(h=>{fh=h;save();alert('Готово: теперь каждое изменение пишется и в этот файл (до закрытия страницы)')}).catch(()=>{})}
+else if(a=='imp'){$('#fm').click();return}
+save();if(r)R()});
+document.addEventListener('change',e=>{const t=e.target,f=t.dataset.f;
+if(f=='tsec')tsec=t.value;else if(f=='main'||f=='word'){D()[f]=t.value}else if(f&&f[0]=='w'&&f.length==2){D().w[+f[1]]=t.value}
+else if(t.id=='fi'&&t.files[0]){up(t.files[0]);t.value='';return}
+else if(t.id=='fm'&&t.files[0]){const r=new FileReader();r.onload=()=>{try{S=JSON.parse(r.result);save();R();alert('Данные загружены')}catch(x){alert('Файл не подошёл')}};r.readAsText(t.files[0]);t.value='';return}
+save()});
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.id=='mi')G.mt({dataset:{v:'ans'}});if(e.key=='Enter'&&e.target.id=='dgi')G.dg({dataset:{v:'go'}})});
+R();
+</script></body></html>
